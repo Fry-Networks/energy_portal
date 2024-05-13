@@ -9,6 +9,7 @@ export function SubmitShellyKeyButton({
   updateMessage,
   disappearInput,
 }: {
+  valid?: boolean;
   authKey: string;
   serverUrl: string;
   deviceId: string;
@@ -18,6 +19,10 @@ export function SubmitShellyKeyButton({
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
+  const isValidAuthKey = /^[a-zA-Z0-9]{92}$/i.test(authKey);
+  const isValidServerUrl = /^https:\/\/[a-zA-Z0-9-]+\.shelly\.cloud$/i.test(serverUrl);
+  const isValidDeviceId = /^[0-9a-f]{12}$/i.test(deviceId);
+  const isValidKeys =  isValidAuthKey && isValidServerUrl && isValidDeviceId;
 
   const handleShellyKeySubmit = async () => {
     setIsLoading(true);
@@ -44,9 +49,9 @@ export function SubmitShellyKeyButton({
     <button
       onClick={handleShellyKeySubmit}
       className={`py-4 px-6 text-base font-medium rounded-lg focus:outline-none ${
-        isLoading ? "bg-gray-400 cursor-wait" : "bg-[#00FFFF] hover:bg-cyan-700"
+        isValidKeys ? "bg-[#00FFFF] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
       }`}
-      disabled={isLoading}
+      disabled={!isValidKeys}
     >
       {isLoading ? "Submitting..." : "Submit Shelly Key"}
     </button>

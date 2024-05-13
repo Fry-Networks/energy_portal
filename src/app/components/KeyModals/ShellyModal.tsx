@@ -49,18 +49,21 @@ export const ShellyModal: React.FC<TapoModalProps> = ({
           token={authkey}
           setToken={setAuthKey}
           inputType="authkey"
+          type="authkey"
           placeholder="Enter Auth Key"
         />
         <ShellyInput
           token={deviceIp}
           setToken={setDeviceIp}
           inputType="id"
+          type="id"
           placeholder="Enter Device Id"
         />
         <ShellyInput
           token={serverUrl}
           setToken={setServerUrl}
           inputType="server"
+          type="server"
           placeholder="Enter Server Url"
         />
 
