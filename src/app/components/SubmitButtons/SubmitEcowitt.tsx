@@ -27,7 +27,6 @@ export function SubmitEcowittButton({
   const isValidKeys = isValidApiKey && isValidAppKey;
 
   const handleEcowittSubmit = async (
-    
     updateMessage: Function,
     disappearInput: Function,
     activeAddress: string
@@ -39,7 +38,7 @@ export function SubmitEcowittButton({
       const response = await submitEcowittKey(apiKey,appKey, activeAddress);
       updateMessage(response?.data);
     } catch (error) {
-      console.error("Error submitting IO Pool API key:", error);
+      console.error("Error submitting Ecowitt key:", error);
       updateMessage({
         message: "Error submitting API key.",
         color: "red",

@@ -3,6 +3,10 @@ import Modal from "react-modal";
 import ShellyInput from "../Inputs/ShellyInput";
 import { SubmitShellyKeyButton } from "../SubmitButtons/SubmitShelly";
 
+interface IMessage {
+  message: string;
+  color: string;
+}
 interface TapoModalProps {
   isOpen: boolean;
   setOpen: Function;
@@ -15,17 +19,18 @@ export const ShellyModal: React.FC<TapoModalProps> = ({
   const [authkey, setAuthKey] = useState<string>("");
   const [serverUrl, setServerUrl] = useState<string>("");
   const [deviceIp, setDeviceIp] = useState<string>("");
-  const [message, updateMessage] = useState<string>("");
-  const [disappear, setDisappear] = useState<boolean>(false);
+  const [message, updateMessage] = useState<IMessage>({
+    message: "",
+    color: "white",
+  });  const [disappear, setDisappear] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     setOpen(false);
     setAuthKey("");
     setServerUrl("");
     setDeviceIp("");
-    updateMessage("");
+    updateMessage({ message: "", color: "white" });
   };
-
   return (
     <Modal
       isOpen={isOpen}
@@ -48,6 +53,7 @@ export const ShellyModal: React.FC<TapoModalProps> = ({
         <ShellyInput
           token={authkey}
           setToken={setAuthKey}
+          disappear={disappear}
           inputType="authkey"
           type="authkey"
           placeholder="Enter Auth Key"
@@ -55,6 +61,7 @@ export const ShellyModal: React.FC<TapoModalProps> = ({
         <ShellyInput
           token={deviceIp}
           setToken={setDeviceIp}
+          disappear={disappear}
           inputType="id"
           type="id"
           placeholder="Enter Device Id"
@@ -62,6 +69,7 @@ export const ShellyModal: React.FC<TapoModalProps> = ({
         <ShellyInput
           token={serverUrl}
           setToken={setServerUrl}
+          disappear={disappear}
           inputType="server"
           type="server"
           placeholder="Enter Server Url"
@@ -76,8 +84,8 @@ export const ShellyModal: React.FC<TapoModalProps> = ({
           disappearInput={setDisappear}
         />
 
-        <p className={`text-white text-center text-[17px] mt-10 font-bold`}>
-          {message}
+        <p className={`text-${message.color} text-center text-[17px] mt-10 font-bold`}>
+          {message.message}
         </p>
       </div>
     </Modal>

@@ -1,6 +1,5 @@
 import { submitShellyKey } from "@/app/server/Shelly";
 import { useWallet } from "@txnlab/use-wallet";
-import { useState } from "react";
 
 export function SubmitShellyKeyButton({
   authKey,
@@ -13,47 +12,56 @@ export function SubmitShellyKeyButton({
   authKey: string;
   serverUrl: string;
   deviceId: string;
-  updateMessage: (message: string) => void;
-  disappearInput: (flag: boolean) => void;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
+  disappearInput: Function;
 }) {
-  const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
   const isValidAuthKey = /^[a-zA-Z0-9]{92}$/i.test(authKey);
   const isValidServerUrl = /^https:\/\/[a-zA-Z0-9-]+\.shelly\.cloud$/i.test(serverUrl);
-  const isValidDeviceId = /^[0-9a-f]{12}$/i.test(deviceId);
+  const isValidDeviceId = /^[a-zA-Z0-9]{12}$/i.test(deviceId);
   const isValidKeys =  isValidAuthKey && isValidServerUrl && isValidDeviceId;
 
-  const handleShellyKeySubmit = async () => {
-    setIsLoading(true);
+  const handleShellyKeySubmit = async (
+    updateMessage: Function,
+    disappearInput: Function,
+    activeAddress: string
+  ) => {
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
-      const response = await submitShellyKey(authKey, serverUrl, deviceId, activeAddress! );
-        
-
-      updateMessage(response.data.message);
+      const response = await submitShellyKey(authKey, serverUrl, deviceId, activeAddress );
+      updateMessage(response?.data);
     } catch (error) {
       console.error("Error submitting Shelly key:", error);
-       
-
-      updateMessage("Error submitting Shelly key.");
+      updateMessage({
+        message: "Error submitting API key dami.",
+        color: "red",
+      });
     } finally {
-      setIsLoading(false);
       disappearInput(false);
     }
   };
 
   return (
     <button
-      onClick={handleShellyKeySubmit}
+      // onClick={handleShellyKeySubmit}
+      onClick={() =>
+        handleShellyKeySubmit( updateMessage,disappearInput,activeAddress!)
+      }
       className={`py-4 px-6 text-base font-medium rounded-lg focus:outline-none ${
         isValidKeys ? "bg-[#00FFFF] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
       }`}
       disabled={!isValidKeys}
     >
-      {isLoading ? "Submitting..." : "Submit Shelly Key"}
+      Submit
     </button>
   );
 }

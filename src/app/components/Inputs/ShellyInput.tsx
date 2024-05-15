@@ -2,6 +2,7 @@ const ShellyInput = ({
     token,
     setToken,
     setValid,
+    disappear,
     placeholder,
     inputType,
     type
@@ -9,6 +10,7 @@ const ShellyInput = ({
     token: string;
     setToken: Function;
     setValid?: Function;
+    disappear: boolean;
     placeholder: string;
     inputType: string;
     type?: "authkey" | "id" | 'server';
@@ -41,7 +43,9 @@ const ShellyInput = ({
         }
       }}
       placeholder={placeholder}
-      className="appearance-none border h-11 w-[300px] border-gray-300 text-black rounded-md py-2 px-4 mb-6 leading-tight focus:outline-none focus:border-blue-500"
+      className={`${
+        disappear ? "opacity-0" : ""
+      } appearance-none border h-11 w-[300px] border-gray-300 text-black rounded-md py-2 px-4 mb-6 leading-tight focus:outline-none focus:border-blue-500`}
     />
   );
 }
