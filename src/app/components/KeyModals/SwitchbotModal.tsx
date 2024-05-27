@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "react-modal";
-import ShellyInput from "../Inputs/ShellyInput";
+import SwitchInput from "../Inputs/SwitchBotInput";
 import { SubmitSwitchKeyButton } from "../SubmitButtons/SubmitSwitchbot";
 
 interface TapoModalProps {
@@ -45,21 +45,24 @@ export const SwitchbotModal: React.FC<TapoModalProps> = ({
         <h1 className="text-[25px] mb-4">
           Please enter SwitchBot credentials below:
         </h1>
-        <ShellyInput
+        <SwitchInput
           token={deviceIp}
           setToken={setDeviceIp}
+          disappear={disappear}
           inputType="id"
           placeholder="Enter Device Id"
         />
-        <ShellyInput
+        <SwitchInput
           token={token}
           setToken={setToken}
+          disappear={disappear}
           inputType="server"
           placeholder="Enter Token"
         />
-        <ShellyInput
+        <SwitchInput
           token={command}
           setToken={setCommand}
+          disappear={disappear}
           inputType="server"
           placeholder="Enter Command"
         />
