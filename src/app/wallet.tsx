@@ -42,7 +42,7 @@ export default function Wallet() {
   });
   const [isModalOpen, setModalIsOpen] = useState(false);
   const [isEcowittModalOpen, setIsEcowittModalOpen] = useState(false);
-  const [isWeatherXMModalOpen, setIsWeatherXMModalOpen] = useState(false);
+  const [isSwitchBotModalOpen, setIsSwitchBotModalOpen] = useState(false);
   const [isShellyModalOpen, setIsShellyModalOpen] = useState(false);
   const { activeAddress } = useWallet();
   const showModal = () => {
@@ -51,8 +51,8 @@ export default function Wallet() {
   const showEcowittModal = () => {
     setIsEcowittModalOpen(true);
   };
-  const showWeatherXMModal = () => {
-    setIsWeatherXMModalOpen(true);
+  const showSwitchBotModal = () => {
+    setIsSwitchBotModalOpen(true);
   };
   const showShellyModal = () => {
     setIsShellyModalOpen(true);
@@ -89,7 +89,7 @@ export default function Wallet() {
             <TapoModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
             <OpenButton
               showModal={showEcowittModal}
-              text="Eciwitt API"
+              text="Ecowitt API"
               logo="/ecowitt.png"
             />
             <EcowittModal
@@ -97,13 +97,13 @@ export default function Wallet() {
               setOpen={setIsEcowittModalOpen}
             />
           {/* <OpenButton
-            showModal={showWeatherXMModal}
+            showModal={showSwitchBotModal}
             text="Switchbot"
             logo="/switchbot.webp"
           />
           <SwitchbotModal
-            isOpen={isWeatherXMModalOpen}
-            setOpen={setIsWeatherXMModalOpen}
+            isOpen={isSwitchBotModalOpen}
+            setOpen={setIsSwitchBotModalOpen}
           /> */}
           <OpenButton
             showModal={showShellyModal}
